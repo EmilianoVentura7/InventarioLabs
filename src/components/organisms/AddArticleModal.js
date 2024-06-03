@@ -10,7 +10,7 @@ return (
         <div className="bg-white p-8 rounded-lg z-10">
             <h2 className="text-2xl font-bold mb-4">Agregar Artículo</h2>
             <AddArticleForm onSubmit={onAdd} />
-            <div className="flex justify-center"> {/* Modified line */}
+            <div className="flex justify-center">
                 <button onClick={onClose} className="bg-red-600 text-white px-4 py-2 m-4 rounded-md">
                     Cancelar
                 </button>

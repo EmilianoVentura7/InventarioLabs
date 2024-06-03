@@ -3,7 +3,6 @@ import Sidebar from "../organisms/Sidebar";
 import AddArticleModal from "../organisms/AddArticleModal";
 
 const ViewArticlesMaker = () => {
-  // Datos de ejemplo para la tabla 
   const [articles] = useState([
     { id: 1, name: "Artículo 1", stock: 10, available: true },
     { id: 2, name: "Artículo 2", stock: 5, available: false },
@@ -17,43 +16,30 @@ const ViewArticlesMaker = () => {
     { id: 10, name: "Artículo 10", stock: 7, available: true },
   ]);
 
-  // Estado para el término de búsqueda
   const [searchTerm, setSearchTerm] = useState("");
-  // Estado para el número de página actual
   const [currentPage, setCurrentPage] = useState(1);
-  // Estado para el número de artículos por página
   const [articlesPerPage] = useState(5);
 
-  // Función para filtrar los artículos según el término de búsqueda
   const filteredArticles = articles.filter((article) =>
     article.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Índice del último artículo en la página actual
   const indexOfLastArticle = currentPage * articlesPerPage;
-  // Índice del primer artículo en la página actual
   const indexOfFirstArticle = indexOfLastArticle - articlesPerPage;
-  // Artículos de la página actual
   const currentArticles = filteredArticles.slice(
     indexOfFirstArticle,
     indexOfLastArticle
   );
 
-  // Función para manejar la eliminación de un artículo
   const handleDelete = (id) => {
-    // Aquí puedes escribir la lógica para eliminar el artículo con el ID proporcionado
     console.log(`Eliminar artículo con ID: ${id}`);
   };
 
-  // Función para manejar la edición de un artículo
   const handleEdit = (id) => {
-    // Aquí puedes escribir la lógica para editar el artículo con el ID proporcionado
     console.log(`Editar artículo con ID: ${id}`);
   };
 
-  // Función para manejar la acción de agregar un artículo
   const handleAdd = () => {
-    // Aquí puedes escribir la lógica para agregar un nuevo artículo
     console.log("Agregar nuevo artículo");
   };
 
@@ -62,59 +48,49 @@ const ViewArticlesMaker = () => {
   const openModal = () => {
     setIsModalOpen(true);
   };
-  
+
   const closeModal = () => {
     setIsModalOpen(false);
   };
-  
-  
-  // Cambiar de página
+
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-gray-100">
       <Sidebar />
       <AddArticleModal isOpen={isModalOpen} onClose={closeModal} onAdd={handleAdd} />
-
-      <div className="flex-1 p-4">
-        <h1 className="text-2xl font-bold mb-4">Artículos</h1>
-        <div className="flex mb-4">
+      <div className="flex-1 p-6">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">Artículos</h1>
+        <div className="flex mb-6">
           <input
             type="text"
             placeholder="Buscar artículo"
-            className="border border-gray-300 rounded-md px-3 py-2 w-full max-w-md mr-2"
+            className="border border-gray-300 rounded-l-md px-4 py-2 w-full max-w-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <button
-            className="bg-orange-500 text-white px-4 py-2 rounded-md"
+            className="bg-orange-500 text-white px-4 py-2 rounded-r-md hover:bg-orange-600 focus:outline-none focus:ring-2 focus:ring-orange-500"
             onClick={openModal}
           >
             Agregar
           </button>
         </div>
-        <div className="overflow-x-auto border rounded-md">
-          <table className="w-full table-auto">
-            <thead>
-              <tr className="bg-orange-500">
-                <th className="px-4 py-2 text-neutral-100">Nombre</th>
-                <th className="px-4 py-2 text-neutral-100">Stock</th>
-                <th className="px-4 py-2 text-neutral-100">Disponibilidad</th>
-                <th className="px-4 py-2 text-neutral-100">Acción</th>
+        <div className="overflow-x-auto bg-white shadow-md rounded-md">
+          <table className="min-w-full table-auto">
+            <thead className="bg-orange-500 text-white">
+              <tr>
+                <th className="px-4 py-2">Nombre</th>
+                <th className="px-4 py-2">Stock</th>
+                <th className="px-4 py-2">Disponibilidad</th>
+                <th className="px-4 py-2">Acción</th>
               </tr>
             </thead>
             <tbody>
               {currentArticles.map((article) => (
-                <tr
-                  key={article.id}
-                  className="odd:bg-gray-100 even:bg-gray-50"
-                >
-                  <td className="border px-4 py-2 text-center">
-                    {article.name}
-                  </td>
-                  <td className="border px-4 py-2 text-center">
-                    {article.stock}
-                  </td>
+                <tr key={article.id} className="odd:bg-gray-100 even:bg-gray-50">
+                  <td className="border px-4 py-2 text-center">{article.name}</td>
+                  <td className="border px-4 py-2 text-center">{article.stock}</td>
                   <td className="border px-4 py-2 text-center">
                     {article.available ? "Disponible" : "No disponible"}
                   </td>
@@ -122,13 +98,13 @@ const ViewArticlesMaker = () => {
                     <img
                       src="../../assets/icons/editar.svg"
                       alt="Editar"
-                      className="cursor-pointer mr-2"
+                      className="cursor-pointer mr-2 hover:scale-110 transition-transform"
                       onClick={() => handleEdit(article.id)}
                     />
                     <img
                       src="../../assets/icons/basura.svg"
                       alt="Eliminar"
-                      className="cursor-pointer"
+                      className="cursor-pointer hover:scale-110 transition-transform"
                       onClick={() => handleDelete(article.id)}
                     />
                   </td>
@@ -137,11 +113,12 @@ const ViewArticlesMaker = () => {
             </tbody>
           </table>
         </div>
-        {/* Paginación */}
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-6">
           <button
             className={`mx-1 px-3 py-1 rounded-md ${
-              currentPage === 1 ? "bg-gray-400 cursor-not-allowed" : "bg-orange-500 hover:bg-orange-600 text-white"
+              currentPage === 1
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
@@ -166,16 +143,12 @@ const ViewArticlesMaker = () => {
           )}
           <button
             className={`mx-1 px-3 py-1 rounded-md ${
-              currentPage ===
-              Math.ceil(filteredArticles.length / articlesPerPage)
+              currentPage === Math.ceil(filteredArticles.length / articlesPerPage)
                 ? "bg-gray-400 cursor-not-allowed"
                 : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
             onClick={() => paginate(currentPage + 1)}
-            disabled={
-              currentPage ===
-              Math.ceil(filteredArticles.length / articlesPerPage)
-            }
+            disabled={currentPage === Math.ceil(filteredArticles.length / articlesPerPage)}
           >
             Siguiente
           </button>
