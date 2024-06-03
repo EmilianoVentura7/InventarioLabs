@@ -1,20 +1,28 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Login from './components/templates/login';
-import Home from './components/templates/Home';
-import LaboratorioMaker from './components/templates/ViewArticleMaker';
-import Users from './components/templates/Users';
+import React from "react";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Login from "./components/templates/login";
+import Home from "./components/templates/Home";
+import LaboratorioMaker from "./components/templates/ViewArticleMaker";
+import LaboratorioQuimica from "./components/templates/ViewArticleQuimica";
+import Users from "./components/templates/Users";
+import { LabProvider } from "./components/atoms/LabContext"
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<LoginLayout />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/view-article-maker" element={<LaboratorioMaker />} /> 
-        <Route path="/users" element={<Users />} />
-      </Routes>
-    </Router>
+    <LabProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<LoginLayout />} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/view-article-maker" element={<LaboratorioMaker />} />
+          <Route
+            path="/view-article-quimica"
+            element={<LaboratorioQuimica />}
+          />
+          <Route path="/users" element={<Users />} />
+        </Routes>
+      </Router>
+    </LabProvider>
   );
 }
 
