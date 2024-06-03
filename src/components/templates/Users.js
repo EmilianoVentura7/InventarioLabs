@@ -23,44 +23,43 @@ const Users = () => {
     user.usuario.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  // Índice del último artículo en la página actual
+  // Índice del último usuario en la página actual
   const indexOfLastUser = currentPage * usersPerPage;
-  // Índice del primer artículo en la página actual
+  // Índice del primer usuario en la página actual
   const indexOfFirstUser = indexOfLastUser - usersPerPage;
-  // Artículos de la página actual
+  // Usuarios de la página actual
   const currentUsers = filteredUsers.slice(
     indexOfFirstUser,
     indexOfLastUser
   );
   
-  
   // Cambiar de página
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen bg-gray-100">
       <Sidebar />
 
-      <div className="flex-1 p-4">
-        <h1 className="text-2xl font-bold mb-4">Usuarios</h1>
-        <div className="flex mb-4">
+      <div className="flex-1 p-6">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">Usuarios</h1>
+        <div className="flex mb-6">
           <input
             type="text"
             placeholder="Buscar usuario"
-            className="border border-gray-300 rounded-md px-3 py-2 w-full max-w-md mr-2"
+            className="border border-gray-300 rounded-l-md px-4 py-2 w-full max-w-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
-        <div className="overflow-x-auto border rounded-md">
-          <table className="w-full table-auto">
-            <thead>
-              <tr className="bg-orange-500">
-                <th className="px-4 py-2 text-neutral-100">Usuario</th>
-                <th className="px-4 py-2 text-neutral-100">Correo</th>
-                <th className="px-4 py-2 text-neutral-100">Nombre</th>
-                <th className="px-4 py-2 text-neutral-100">Apellidos</th>
-                <th className="px-4 py-2 text-neutral-100">Cargo</th>
+        <div className="overflow-x-auto bg-white shadow-md rounded-md">
+          <table className="min-w-full table-auto">
+            <thead className="bg-orange-500 text-white">
+              <tr>
+                <th className="px-4 py-2">Usuario</th>
+                <th className="px-4 py-2">Correo</th>
+                <th className="px-4 py-2">Nombre</th>
+                <th className="px-4 py-2">Apellidos</th>
+                <th className="px-4 py-2">Cargo</th>
               </tr>
             </thead>
             <tbody>
@@ -90,10 +89,12 @@ const Users = () => {
           </table>
         </div>
         {/* Paginación */}
-        <div className="flex justify-center mt-4">
+        <div className="flex justify-center mt-6">
           <button
             className={`mx-1 px-3 py-1 rounded-md ${
-              currentPage === 1 ? "bg-gray-400 cursor-not-allowed" : "bg-orange-500 hover:bg-orange-600 text-white"
+              currentPage === 1
+                ? "bg-gray-400 cursor-not-allowed"
+                : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
