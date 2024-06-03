@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Sidebar from "../organisms/Sidebar";
 import AddArticleModal from "../organisms/AddArticleModal";
 
-const ViewArticles = () => {
+const ViewArticlesMaker = () => {
   // Datos de ejemplo para la tabla 
   const [articles] = useState([
     { id: 1, name: "Artículo 1", stock: 10, available: true },
@@ -87,7 +87,7 @@ const ViewArticles = () => {
             onChange={(e) => setSearchTerm(e.target.value)}
           />
           <button
-            className="bg-blue-500 text-white px-4 py-2 rounded-md"
+            className="bg-orange-500 text-white px-4 py-2 rounded-md"
             onClick={openModal}
           >
             Agregar
@@ -141,7 +141,7 @@ const ViewArticles = () => {
         <div className="flex justify-center mt-4">
           <button
             className={`mx-1 px-3 py-1 rounded-md ${
-              currentPage === 1 ? "bg-gray-400 cursor-not-allowed" : "bg-blue-500 hover:bg-blue-600 text-white"
+              currentPage === 1 ? "bg-gray-400 cursor-not-allowed" : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
             onClick={() => paginate(currentPage - 1)}
             disabled={currentPage === 1}
@@ -156,7 +156,7 @@ const ViewArticles = () => {
                 onClick={() => paginate(index + 1)}
                 className={`mx-1 px-3 py-1 rounded-md ${
                   currentPage === index + 1
-                    ? "bg-blue-500 text-white"
+                    ? "bg-orange-500 text-white"
                     : "bg-white hover:bg-gray-200"
                 }`}
               >
@@ -169,7 +169,7 @@ const ViewArticles = () => {
               currentPage ===
               Math.ceil(filteredArticles.length / articlesPerPage)
                 ? "bg-gray-400 cursor-not-allowed"
-                : "bg-blue-500 hover:bg-blue-600 text-white"
+                : "bg-orange-500 hover:bg-orange-600 text-white"
             }`}
             onClick={() => paginate(currentPage + 1)}
             disabled={
@@ -185,4 +185,4 @@ const ViewArticles = () => {
   );
 };
 
-export default ViewArticles;
+export default ViewArticlesMaker;
